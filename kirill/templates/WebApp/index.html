@@ -1,0 +1,139 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <title> Реестр предприятий РК </title>
+  </head>
+  <body>
+    
+
+    <!-- ШАПКА САЙТА -->
+    <header>
+      <div class="head">
+      <img class="icon" src="{% static 'img/base.png' %}" alt="photo">
+      <h2 class="center"> Единый реестр предприятий РК прошедших регистрацию </h2>
+      </div>
+      
+    </header>
+    
+    <!-- КОНТЕНТ -->
+    <nav>
+      
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"> Список предприятий </button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> Налоговые комитеты </button>
+          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"> Адреса головных офисов банков РК</button>
+          <ul id="workers" class="nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'admin:index' %}"> Администрация </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'login' %}"> Сотрудникам </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          
+
+               <!-- СПИСОК ПРЕДПРИЯТИЙ  -->
+               <div id = "companies">
+                   <br>
+                <table class="table table-striped table-hover">
+                <th> Наименование предприятия </th>
+                <th> БИН </th>
+                <th> Руководитель </th>
+                <th> Адрес </th>
+                <th> Контактный телефон </th>
+
+                {% for company in companies %} 
+                <tr>
+                    <td> {{company.full_name}}</td>
+                    <td> {{company.bin_id}}</td>
+                    <td> {{company.fio_ruk}}</td>
+                    <td> {{company.address}}</td>
+                    <td> {{company.phone}}</td> 
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+             
+            <!-- СПИСОК НАЛОГОВЫХ КОМИТЕТОВ -->
+            <div id = "nk">
+                <br>
+                <table class="table table-striped table-hover">
+                <th> № </th>
+                <th> Наименование налогового комитета </th>
+                <th> Адрес </th>
+
+                {% for komitet in nk %} 
+                <tr>
+                    <td> {{komitet.id}}</td>
+                    <td> {{komitet.name}}</td>
+                    <td> {{komitet.address}}</td>
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+            <!-- СПИСОК ГОЛОВНЫХ ОФИСОВ БАНКОВ -->
+            <div id = "banki">
+                <br>
+                <table class="table table-striped table-hover">
+                <th> № </th>
+                <th> Наименование банка </th>
+                <th> Адрес </th>
+
+                {% for bank in banki %} 
+                <tr>
+                    <td> {{bank.id}}</td>
+                    <td> {{bank.name}}</td>
+                    <td> {{bank.address}}</td>
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+      </div>
+<br>
+<br>
+<script src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ad7b696a805394a87e1adc2603daa6b26759a891670c489f3d6e9388bef430f9b&amp;width=100%25&amp;height=400&amp;lang=ru_RU"></script>          
+      <footer>
+        <table>
+        <tr>
+        <td>
+            <div class ="contacts">
+            <h4> Контакты </h4>
+            <p>г. Караганда</p>
+            <p><a href="tel:+7 (747)786-71-41" class="phone">+7 (747)786-71-41</a> <br>
+            <a href="mailto:elisadoollie@gmail.com" class="mail">elisadoollie@gmail.com</a>
+             </p>
+            </div>
+        </td>
+        <td>
+            <div class="copyright">
+                <p><strong> Реестр предприятий РК </strong></p>
+                <p>&copy; Джумабаева К.А.</p>
+                
+              </div>
+        </td>
+        </tr>
+        </table>
+        </footer>
+  </body>
+
+
+  {% endblock  %}

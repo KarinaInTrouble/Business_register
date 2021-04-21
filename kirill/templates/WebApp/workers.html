@@ -1,0 +1,81 @@
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/workers.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title> Бухгалтерия</title>
+  </head>
+
+  <body>
+    <header>
+      <div>
+        <h3 id="accounting"> Финансовые показатели </h3>
+
+        <ul class="navbar navbar-light bg-light">
+          <form>
+            <button class="btn btn-outline-success me-2" type="button" > <a href="{% url 'index' %}"> Главная </a></button>
+            <button class="btn btn-outline-success me-2" type="button" > <a href="{% url 'workers_1' %}">Бухгалтерские счета </a></button>
+            <button class="btn btn-outline-success me-2" type="button" ><a href="{% url 'workers_2' %}">Банки </a></button>
+            <button class="btn btn-outline-success me-2" type="button" ><a href="{% url 'workers_3' %}"> Предприятия/Банки </a></button>
+            <button class="btn btn-outline-success me-2" type="button" > <a href="{% url 'logout' %}"> Выход </a></button>
+          </form>
+        </ul>
+      </div>
+    </header>
+    <hr>
+    <br>
+
+  <h3 id="add"> Добавить данные </h3>
+  <div>       
+            <form class="f" action = "{% url 'workers' %}" method="post">
+            {% csrf_token %}
+            {{form|crispy}} 
+            <br>
+            <input type="submit" value="Добавить">
+          </form>
+    </div>     
+ 
+    <hr>
+           
+  <h3 id="show_delete"> Отчетность по всем добавленным ФП </h3>
+          </button>
+        
+            <div id = "FP">
+              <br>
+                <table class="table table-hover">
+                
+                <th> БИН </th>
+                <th> Квартал </th>
+                <th> Год </th>
+                <th> Код счета </th>
+                <th> Сумма </th>
+                <th> Признак </th>
+                <th> Удаление </th>
+
+                {% for p in fp %} 
+                <tr>
+                    
+                    <td> {{p.bin_fp}}</td>
+                    <td> {{p.kvartal}}</td>
+                    <td> {{p.date|date:'Y'}}</td>
+                    <td> {{p.bs}}</td> 
+                    <td> {{p.summa}}</td> 
+                    <td> {{p.priznak}}</td> 
+                    <td><a href="/delete/{{ p.id }}">Удалить</a></td>
+                </tr>
+                {% endfor %}
+                </table>
+       </div>
+          </div>
+        </div>
+      </div>
+
+
+  </body>
+
+{% endblock %}

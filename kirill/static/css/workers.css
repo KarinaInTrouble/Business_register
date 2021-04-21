@@ -1,0 +1,25 @@
+form.f{
+    position: relative;
+    left: 5%;
+    width: 50%;
+}
+
+#w2{
+    position: relative;
+    width: 70%;
+}
+ 
+#accounting{
+    background-color: rgb(255, 255, 255);
+}
+
+h3{
+    background-color: rgb(139, 223, 175);
+}
+
+#FP, #BS, #cbf, #Banks{
+    position: relative;
+    width: 1100px;
+    left: 50px;
+}
+
